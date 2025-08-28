@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const registerRouter = require("./routes/registerRouter.js");
 const registerAdminRouter = require("./routes/registerAdminRouter.js");
 const loginAdminRouter = require("./routes/loginAdminRouter.js");
@@ -7,6 +8,7 @@ const loginUserRouter = require("./routes/loginUserRouter.js");
 const globalError = require("./utilities/globalErrorHandlingMiddleware.js");
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use("/api/v1/register", registerRouter);
 app.use("/api/v1/admin/register", registerAdminRouter);
