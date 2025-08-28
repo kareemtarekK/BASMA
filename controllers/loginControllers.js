@@ -46,8 +46,7 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message:
-      "you are logged in successfully and sent verification code to your number ✅",
+    message: "you are logged in successfully ✅",
     token,
   });
 });
