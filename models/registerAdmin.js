@@ -38,12 +38,12 @@ const adminRegister = new mongoose.Schema({
       required: [true, "plesae provide your phone"],
     },
   },
-  verificationCode: String,
-  statusCode: {
-    type: Boolean,
-    default: false,
-  },
-  codeExpired: Date,
+  // verificationCode: String,
+  // statusCode: {
+  //   type: Boolean,
+  //   default: false,
+  // },
+  // codeExpired: Date,
   created_at: {
     type: Date,
     default: Date.now,
