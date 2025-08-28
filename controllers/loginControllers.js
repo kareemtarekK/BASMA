@@ -7,7 +7,7 @@ const catchAsync = require("./../utilities/catchAsync.js");
 const AppError = require("./../utilities/AppError.js");
 
 const vonage = new Vonage({
-  apiKey: "585a77b9",
+  apiKey: process.env.API_KEY,
   apiSecret: process.env.API_SECRET,
 });
 
