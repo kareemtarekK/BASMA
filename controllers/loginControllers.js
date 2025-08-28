@@ -6,12 +6,12 @@ const registerController = require("./registerController.js");
 const catchAsync = require("./../utilities/catchAsync.js");
 const AppError = require("./../utilities/AppError.js");
 
-const vonage = new Vonage({
-  apiKey: process.env.API_KEY,
-  apiSecret: process.env.API_SECRET,
-});
+// const vonage = new Vonage({
+//   apiKey: process.env.API_KEY,
+//   apiSecret: process.env.API_SECRET,
+// });
 
-const opt = Math.floor(100000 + Math.random() * 900000);
+// const opt = Math.floor(100000 + Math.random() * 900000);
 
 // login admin
 exports.loginAdmin = catchAsync(async (req, res, next) => {
@@ -25,27 +25,30 @@ exports.loginAdmin = catchAsync(async (req, res, next) => {
     !(await adminUser.correctPassword(password, adminUser.password))
   )
     return next(new AppError("email and password is not correct 💥", 400));
-  const { countryCode, phone } = adminUser.phonenumber;
-  const number = countryCode + phone;
-  console.log(number);
+  // const { countryCode, phone } = adminUser.phonenumber;
+  // const number = countryCode + phone;
+  // console.log(number);
 
-  const r = await vonage.sms.send({
-    to: number,
-    from: "elmotakamel",
-    text: `verify your account using verification code ${opt}`,
-  });
+  // const r = await vonage.sms.send({
+  //   to: number,
+  //   from: "elmotakamel",
+  //   text: `verify your account using verification code ${opt}`,
+  // });
   // console.log(r);
-  const encryptedCode = crypto
-    .createHash("sha256")
-    .update(opt.toString())
-    .digest("hex");
-  adminUser.verificationCode = encryptedCode;
-  adminUser.codeExpired = Date.now() + 5 * 60 * 1000;
-  await adminUser.save({ validateBeforeSave: false });
+  // const encryptedCode = crypto
+  //   .createHash("sha256")
+  //   .update(opt.toString())
+  //   .digest("hex");
+  // adminUser.verificationCode = encryptedCode;
+  // adminUser.codeExpired = Date.now() + 5 * 60 * 1000;
+  // await adminUser.save({ validateBeforeSave: false });
+  const token = registerController.createToken(adminUser);
+
   res.status(200).json({
     status: "success",
     message:
       "you are logged in successfully and sent verification code to your number ✅",
+    token,
   });
 });
 
