@@ -7,9 +7,9 @@ const verifyRouter = require("./routes/verifyRouter.js");
 const globalError = require("./utilities/globalErrorHandlingMiddleware.js");
 const app = express();
 
-// app.use("/", (req, res, next) => {
-//   res.send("app is running ✅");
-// });
+app.use("/", (req, res, next) => {
+  res.send("welcome✅");
+});
 app.use(express.json());
 app.use("/api/v1/register", registerRouter);
 app.use("/api/v1/admin/register", registerAdminRouter);
