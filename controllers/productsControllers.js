@@ -5,7 +5,10 @@ const Product = require("./../models/product.js");
 // add new product
 exports.createProduct = catchAsync(async (req, res, next) => {
   const imgUrls = req.files.map((file) => file.path);
-  req.body.img = imgUrls;
+  req.body.imgs = imgUrls;
+  //   console.log(req.body.details);
+  req.body.details = JSON.parse(req.body.details);
+  console.log(req.body.details);
   const newProduct = await Product.create(req.body);
   res.status(201).json({
     status: "success",
@@ -30,9 +33,13 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 // update product
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const productBeforeUpdate = await Product.findById(req.params.product_id);
-  if (req.files) {
+  if (req.files.length > 0) {
     const imgUrls = req.files.map((file) => file.path);
-    req.body.img = imgUrls;
+    req.body.imgs = imgUrls;
+  }
+  console.log(req.files);
+  if (req.body.details != undefined) {
+    req.body.details = JSON.parse(req.body.details);
   }
   const updatedProduct = await Product.findByIdAndUpdate(
     req.params.product_id,
@@ -53,7 +60,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
 exports.deleteProduct = catchAsync(async (req, res, next) => {
   if (req.files) {
     const imgUrls = req.files.map((file) => file.path);
-    req.body.img = imgUrls;
+    req.body.imgs = imgUrls;
   }
   const deletedProduct = await Product.findByIdAndUpdate(
     req.params.product_id,

@@ -8,17 +8,8 @@ const productSchema = new mongoose.Schema({
       },
       code: {
         type: String,
-        default: "ar",
-      },
-    },
-    {
-      name: {
-        type: String,
-        required: [true, "enter product english name."],
-      },
-      code: {
-        type: String,
-        default: "en",
+        // default: "ar",
+        required: [true, "enter code en or ar"],
       },
     },
   ],
