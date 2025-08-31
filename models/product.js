@@ -1,20 +1,32 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
-  arabicName: {
-    type: String,
-    required: [true, "enter product arabic name."],
-    trim: true,
-  },
-  englishName: {
-    type: String,
-    required: [true, "enter product english name."],
-    trim: true,
-  },
+  details: [
+    {
+      name: {
+        type: String,
+        required: [true, "enter product arabic name."],
+      },
+      code: {
+        type: String,
+        default: "ar",
+      },
+    },
+    {
+      name: {
+        type: String,
+        required: [true, "enter product english name."],
+      },
+      code: {
+        type: String,
+        default: "en",
+      },
+    },
+  ],
   price: {
     type: Number,
     required: [true, "enter product price"],
   },
-  oldPrice: {
+  old_price: {
     type: Number,
     required: [true, "enter product old price."],
   },
@@ -22,9 +34,13 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, "enter product quantity."],
   },
-  img: [String],
-  trademark: {
-    type: String,
+  imgs: [String],
+  trademark__id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, "enter product trademark"],
+  },
+  service__id: {
+    type: mongoose.Schema.Types.ObjectId,
     required: [true, "enter product trademark"],
   },
   is_deleted: {
