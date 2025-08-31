@@ -30,6 +30,9 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 // update product
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const productBeforeUpdate = await Product.findById(req.params.product_id);
+  const imgUrls = req.files.map((file) => file.path);
+  req.body.img = imgUrls;
+  console.log(req.params.product_id);
   const updatedProduct = await Product.findByIdAndUpdate(
     req.params.product_id,
     req.body,

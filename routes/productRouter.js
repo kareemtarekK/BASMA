@@ -9,7 +9,7 @@ productRouter
 
 productRouter
   .route("/:product_id")
-  .patch(productController.updateProduct)
+  .patch(upload.array("img", 10), productController.updateProduct)
   .delete(productController.deleteProduct);
 
 module.exports = productRouter;
