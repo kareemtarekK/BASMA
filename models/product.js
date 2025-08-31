@@ -35,11 +35,11 @@ const productSchema = new mongoose.Schema({
     required: [true, "enter product quantity."],
   },
   imgs: [String],
-  trademark__id: {
+  trademark_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "enter product trademark"],
   },
-  service__id: {
+  service_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "enter product trademark"],
   },
