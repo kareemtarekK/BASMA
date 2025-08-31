@@ -27,6 +27,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "enter product trademark"],
   },
+  is_deleted: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);
