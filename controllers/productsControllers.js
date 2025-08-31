@@ -51,6 +51,10 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
 
 // delete product
 exports.deleteProduct = catchAsync(async (req, res, next) => {
+  if (req.files) {
+    const imgUrls = req.files.map((file) => file.path);
+    req.body.img = imgUrls;
+  }
   const deletedProduct = await Product.findByIdAndUpdate(
     req.params.product_id,
     { is_deleted: 1 },
