@@ -19,7 +19,9 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 
 // get all products
 exports.getAllProducts = catchAsync(async (req, res, next) => {
-  const products = await Product.find({});
+  const products = await Product.find({})
+    .populate("trademark_id")
+    .populate("service_id");
   res.status(200).json({
     status: "success",
     data: products,

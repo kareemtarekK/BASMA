@@ -7,6 +7,7 @@ const loginUserRouter = require("./routes/loginUserRouter.js");
 const productRouter = require("./routes/productRouter.js");
 const langsRouter = require("./routes/langsRouter.js");
 const trademarkRouter = require("./routes/trademarkRouter.js");
+const serviceRouter = require("./routes/serviceRouter.js");
 // const verifyRouter = require("./routes/verifyRouter.js");
 const globalError = require("./utilities/globalErrorHandlingMiddleware.js");
 const app = express();
@@ -21,6 +22,7 @@ app.use("/api/v1/user/login", loginUserRouter);
 app.use("/api/v1/admin/products", productRouter);
 app.use("/api/v1/admin/langs", langsRouter);
 app.use("/api/v1/admin/trademarks", trademarkRouter);
+app.use("/api/v1/admin/services", serviceRouter);
 
 app.use("/", (req, res, next) => {
   res.send("welcome✅");

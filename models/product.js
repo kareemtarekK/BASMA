@@ -28,10 +28,12 @@ const productSchema = new mongoose.Schema({
   trademark_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "enter product trademark"],
+    ref: "Trademark",
   },
   service_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "enter product trademark"],
+    ref: "Service",
   },
   is_deleted: {
     type: Number,
