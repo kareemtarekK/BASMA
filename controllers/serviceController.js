@@ -15,7 +15,7 @@ exports.createService = catchAsync(async (req, res, next) => {
 
 async function getServicesTree() {
   const services = await Service.find().lean();
-
+  console.log(services);
   const servicesMap = services.map((s) => ({ ...s, _id: s._id.toString() }));
 
   const map = {};
