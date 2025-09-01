@@ -36,12 +36,34 @@ async function getServicesTree() {
   return tree;
 }
 
+function transformIds(obj) {
+  if (Array.isArray(obj)) {
+    return obj.map(transformIds);
+  } else if (obj && typeof obj === "object") {
+    const newObj = {};
+    for (let key in obj) {
+      if (key === "_id") {
+        newObj["id"] = obj[key].toString(); // تحويل _id إلى id
+      } else if (Array.isArray(obj[key]) || typeof obj[key] === "object") {
+        newObj[key] = transformIds(obj[key]);
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+    return newObj;
+  }
+  return obj;
+}
+
 exports.getAllServices = catchAsync(async (req, res, next) => {
   const tree = await getServicesTree();
 
+  const cleanTree = transformIds(tree);
+
+  console.log(tree);
   res.status(200).json({
     status: "success",
-    data: tree,
+    data: cleanTree,
   });
 });
 
