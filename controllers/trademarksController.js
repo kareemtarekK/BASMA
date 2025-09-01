@@ -3,7 +3,7 @@ const AppError = require("./../utilities/AppError.js");
 const Trademark = require("./../models/trademarks.js");
 
 exports.createTrademark = catchAsync(async (req, res, next) => {
-  req.body.details = JSON.parse(req.body.details);
+  // req.body.details = JSON.parse(req.body.details);
   req.body.img = req.file.path;
   const trademark = await Trademark.create(req.body);
   res.status(201).json({
@@ -25,7 +25,7 @@ exports.updateTrademark = catchAsync(async (req, res, next) => {
     req.body.img = req.file.path;
   }
   if (req.body.details != undefined) {
-    req.body.details = JSON.parse(req.body.details);
+    // req.body.details = JSON.parse(req.body.details);
   }
   const updatedTrademark = await Trademark.findByIdAndUpdate(
     req.params.trademark_id,
