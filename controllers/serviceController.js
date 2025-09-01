@@ -67,21 +67,6 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateService = catchAsync(async (req, res, next) => {
-  const service = await Service.findByIdAndUpdate(
-    req.params.service_id,
-    req.body,
-    {
-      runValidators: true,
-      new: true,
-    }
-  );
-  res.status(200).json({
-    status: "success",
-    service,
-  });
-});
-
 async function getServiceTreeById(serviceId) {
   const service = await Service.findById(serviceId).lean();
 
@@ -101,6 +86,24 @@ async function getServiceTreeById(serviceId) {
 
   return service;
 }
+exports.updateService = catchAsync(async (req, res, next) => {
+  const updatedService = await Service.findByIdAndUpdate(
+    req.params.service_id,
+    req.body,
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+
+  const cleanTree = await getServiceTreeById(updatedService._id);
+
+  const service = transformIds(cleanTree);
+  res.status(200).json({
+    status: "success",
+    service,
+  });
+});
 
 exports.getService = catchAsync(async (req, res, next) => {
   const cleanTree = await getServiceTreeById(req.params.service_id);
