@@ -8,7 +8,6 @@ exports.createProduct = catchAsync(async (req, res, next) => {
   req.body.imgs = imgUrls;
   //   console.log(req.body.details);
   req.body.details = JSON.parse(req.body.details);
-  console.log(req.body.details);
   const newProduct = await Product.create(req.body);
   res.status(201).json({
     status: "success",
@@ -23,10 +22,7 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
   const products = await Product.find({});
   res.status(200).json({
     status: "success",
-    data: {
-      length: products.length,
-      products,
-    },
+    data: products,
   });
 });
 

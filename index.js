@@ -5,6 +5,8 @@ const registerAdminRouter = require("./routes/registerAdminRouter.js");
 const loginAdminRouter = require("./routes/loginAdminRouter.js");
 const loginUserRouter = require("./routes/loginUserRouter.js");
 const productRouter = require("./routes/productRouter.js");
+const langsRouter = require("./routes/langsRouter.js");
+const trademarkRouter = require("./routes/trademarkRouter.js");
 // const verifyRouter = require("./routes/verifyRouter.js");
 const globalError = require("./utilities/globalErrorHandlingMiddleware.js");
 const app = express();
@@ -17,6 +19,8 @@ app.use("/api/v1/admin/login", loginAdminRouter);
 app.use("/api/v1/user/login", loginUserRouter);
 // app.use("/api/v1/verify", verifyRouter);
 app.use("/api/v1/admin/products", productRouter);
+app.use("/api/v1/admin/langs", langsRouter);
+app.use("/api/v1/admin/trademarks", trademarkRouter);
 
 app.use("/", (req, res, next) => {
   res.send("welcome✅");

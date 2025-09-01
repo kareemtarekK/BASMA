@@ -8,7 +8,6 @@ const productSchema = new mongoose.Schema({
       },
       code: {
         type: String,
-        // default: "ar",
         required: [true, "enter code en or ar"],
       },
     },
