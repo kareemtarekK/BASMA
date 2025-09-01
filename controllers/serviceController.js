@@ -68,7 +68,7 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
 });
 
 exports.updateService = catchAsync(async (req, res, next) => {
-  const updatedService = await Service.findByIdAndUpdate(
+  const service = await Service.findByIdAndUpdate(
     req.params.service_id,
     req.body,
     {
@@ -78,7 +78,7 @@ exports.updateService = catchAsync(async (req, res, next) => {
   );
   res.status(200).json({
     status: "success",
-    updatedService,
+    service,
   });
 });
 
