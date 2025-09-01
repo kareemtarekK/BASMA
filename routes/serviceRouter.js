@@ -8,6 +8,7 @@ serviceRouter
 
 serviceRouter
   .route("/:service_id")
+  .get(serviceController.getService)
   .patch(serviceController.updateService)
   .delete(serviceController.deleteService);
 

@@ -82,6 +82,37 @@ exports.updateService = catchAsync(async (req, res, next) => {
   });
 });
 
+async function getServiceTreeById(serviceId) {
+  const service = await Service.findById(serviceId).lean();
+
+  if (!service) {
+    return null;
+  }
+
+  service._id = service._id.toString();
+
+  const children = await Service.find({ parent_id: service._id }).lean();
+
+  service.children = await Promise.all(
+    children.map(async (child) => {
+      return await getServiceTreeById(child._id.toString());
+    })
+  );
+
+  return service;
+}
+
+exports.getService = catchAsync(async (req, res, next) => {
+  const cleanTree = await getServiceTreeById(req.params.service_id);
+
+  const service = transformIds(cleanTree);
+
+  res.status(200).json({
+    status: "success",
+    service,
+  });
+});
+
 exports.deleteService = catchAsync(async (req, res, next) => {
   await Service.findByIdAndDelete(req.params.service_id);
   res.status(204).json({
